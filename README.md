@@ -38,7 +38,7 @@ Feng Cheng, Tufts University, Research Assistant at NeuroCognition of Language L
   - Customized functions for plotting correlation matrix
   - Customized functions for plotting dendrograms
 #### PPData_alt.py
-- **Description** A class for simple preprocessing of EEG and variable data. Suitable for importing several dataset in our lab.
+- **Description** A class for simple preprocessing of EEG and variable data. Suitable for importing several datasets in our lab.
 - **Status**: Finished.
 - **Functionality** (refer to individual functions for details)
   - Import data from txt/csv files
