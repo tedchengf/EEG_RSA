@@ -13,9 +13,9 @@ Feng Cheng, Tufts University, Research Assistant at NeuroCognition of Language L
 - **Status**: In Progress. Lack comments; need to rearrange some functions for simpler interactions.
 - **Functionality** (refer to individual functions for details)
   - Calculate Representational Disimilarity Matrix (RDM) using a customizable function
-  - Manage the variables through masking/re-ordering
+  - Manage the variables through applying general masking/re-ordering, extracting trials from specific conditions, and interpolation (a simple 1-dimesional nearest-neighbor algorithm is included). All of those management can be specified simultanously.
   - Export variables and associated RDMs
-  - Prepare upper-triangular RDM for RSA 
+  - Prepare upper-triangular RDM for RSA. 
   - Calculate correlation (Partial/Non-partial) between variables values and their RDMs
   - Impute missing values with iterative imputation **(not tested yet)**
   - Calculate cosine similarity from a given word embedding corpus
@@ -44,6 +44,7 @@ Feng Cheng, Tufts University, Research Assistant at NeuroCognition of Language L
   - Import data from txt/csv files
   - Clear pre-labeled artifact trials
   - Reassign bin labels to EEG data
+  - Produce classical ERP
 #### Clustering_Auxiliaries.py
 - **Description** A group of functions for clustering/dimension analysis
 - **Status**: Finished. Lack comments.
@@ -61,3 +62,16 @@ Feng Cheng, Tufts University, Research Assistant at NeuroCognition of Language L
 #### Auxiliaries.py
 - **Description** A group of simple auxiliary functions
 - **Status**: Finished.
+
+## Main functions:
+Note that the toolboxes I presented here belong to an ongoing project, and some changes made in the toolboxes might not be reflected in the main functions. As a result, some of these main functions might call a non-existent function or an outdated version of a modified class function. I will make specific main function as examples for interacting with the toolboxes once the project is finished.
+#### EmSingle_ERP.py
+Main function for EmSingle Dataset. Include functions for preprocessing and producing ERP using **PPData_alt**, functions for producing regressional ERP using **Regression_Analysis**, functions for clustering permutation test using **CPerm**, and plotting functions using **RSA_plot**. Also include functions using spatio-temporal cluster permutation from the MNE toolbox.
+#### RSA_clustering.py 
+Main function for performing clustering/dimension analysis for EmSingle dataset. Include functions for PCoA and associated analysis, functions for producing, plotting, and evaluating hierarchical clusters, and plotting function. Mostly rely on **variables_processing_alt**, **Clustering_Auxiliaries**, and **RSA_plot**.
+#### RSA_driver.py
+Main function for performing RSA for EmSingle dataset. Note that this is an old driver. Include functions for preprocessing using **PPData_alt**, functions for  RSA using **variables_processing_alt**, functions for clustering permutation test using **CPerm**, and plotting functions using **RSA_plot**.
+#### multi_cond_RSA.py
+Main function for performing RSA for EmSingle dataset.Include functions for preprocessing using **PPData_alt**, functions (including interpolation attempts) for RSA using **variables_processing_alt**, functions for clustering permutation test using **CPerm**, and plotting functions using **RSA_plot**.
+#### phil_semantics.py
+Similar to **multi_cond_RSA.py**, except designed for Phil's kiloword dataset.
