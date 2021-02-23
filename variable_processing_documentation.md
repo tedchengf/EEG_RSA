@@ -134,4 +134,38 @@ A class for storing variables. It is recommended to store all variables together
 - **Returns**
   - **correlation_matrix: *numpy ndarray* with shape = (n, n)** <br/>
     The pairwise correlation of specified variables. <br/>
-    ***Note***: If `interpolation = True`, the pairwise correlation will not be symmetrical. In this matrix, the x-axis represents the target variable that is used to create the interpolation policy, and the y-axis represents the control variable that will be interpolated according to the policy created by the target variable. For example, while `[a, b]` represents "the correlation between interpolated a and b according to the interpolation policy of variable a", `[b, a]` represents "the correlation between interpolated b and a according to the interpolation policy of variable b".
+    ***Note***: If `interpolation = True`, the pairwise correlation matrix will not be symmetrical. In this matrix, the x-axis represents the target variable that is used to create the interpolation policy, and the y-axis represents the control variable that will be interpolated according to the policy created by the target variable. For example, while `[a, b]` represents "the correlation between interpolated a and b according to the interpolation policy of variable a", `[b, a]` represents "the correlation between interpolated b and a according to the interpolation policy of variable b".
+<br/><br/> 
+
+<code>**calculate_variables_correlation_interpol**(var_names, partial = True, max_diff = 0, range_type = "percentage", stim_val = "average", stim_val_type = "dsm")</code>
+<br/> Variable correlation with interpolation options. ***Depreciated***, with its function completely replaced by **`calculate_variables_correlation()`**
+<br/><br/> 
+
+<code>**check_missing_words**(words, sim_type = "w2v", resource_directory = "./")</code>
+<br/> Check the words in the specified list that are missing from a given corpus
+- **Parameters**
+  - **words: *numpy ndarray* with shape = (n,)** <br/>
+    The 1D array of words to check.
+  - **sim_type: "w2v", "lsa", "glove"** <br/>
+    The type of corpus to load. <br/>. Default = **"w2v"**
+    If `sim_type = "w2v"`, then the function expect to find the corpus `"GoogleNews-vectors-negative300.bin"` in the specified directory. <br/>
+    If `sim_type = "lsa"`, then the function expect to find the corpus `"wiki_en_Nov2019"` in the specified directory. <br/>
+    If `sim_type = "glove"`, then the function expect to find the corpus `"gensim_glove_vectors.txt"` in the specified directory. <br/>
+  - **resource_directory** <br/>
+    The resource directory that stores the corpus. Default = **"./"**
+- **Returns**
+  - **bad_words: *numpy ndarray* with shape = (n,)** <br/>
+    The array of missing words
+  - **bad_words_indices: *numpy ndarray* with shape = (n,)** <br/>
+    The indexes of the missing words, relative to the specified array **words**
+    
+<code>**semantic_disimilarilty**(words, update = True, sim_type = "w2v", resource_directory = "./")</code>
+<br/> Calculate the 2D semantic dissimilarity matrix based on the words. The dissimilarity score is calculated using cosine similarity. Note that if a word word is not found in the corpus, all associated matrix values will be `numpy.NaN`.
+- **Parameters**
+  - **words: *numpy ndarray* with shape = (n,)** <br/>
+    The 1D array of words.
+  - **update: *bool*** <br/>
+    Indicate whether the user wants to update the dissimilarity matrix directly to the instance. Default = **True**. If `update = True`, then the variables will be updated with the name `"w2v"`, `"lsa"`, or `"glove"` according to **sim_type**. The associated 1D array will be an empty array.
+  - **sim_type, resource_directory** <br/>
+    Please refer to **`check_missing_words()`** for details. <br/>
+
