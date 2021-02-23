@@ -82,6 +82,7 @@ A class for storing variables. It is recommended to store all variables together
     A list of conditions that have no trials under the indexing and mask constraints. Only appears when **mask** is specified.
   - **Missing_ind: *None* or *numpy ndarray*** <br/>
     The indexes not found in the current instance. The indexes are defined relatively to the specified **word** parameter, and will be ***np ndarray*** only when `extract_type = "words".
+<br/><br/> 
  
 <code>**create_STR_subject**(sub_name, eeg, var_names, extract_type = "None", cond_sti = None, cond_dict = None, words = None, mask = None, interpolation = False, max_diff = 0, range_type = "percentage", stim_val = "average", stim_val_type = "dsm", CV = None)</code>
 <br/> Format the eeg data and the variable values and create one or multiple **Single_Trial_RSA** instance(s)
@@ -114,3 +115,20 @@ A class for storing variables. It is recommended to store all variables together
     By default, the function will return one ***Single_Trial_RSA instance***. <br/>
     If `interpolation = True` and more than one variable is specified in **var_names**, then the **Subjects** will be a ***numpy ndarray*** of ***Single_Trial_RSA instance***, with the length of the array equivalent to the number of variable specified in **var_names**. <br/>
     If **mask** is defined, then the **Subjects** will be a ***dict***, with the keys being the unique characters in **mask**. The value associated with a key is either a ***Single_Trial_RSA instance*** or a ***numpy ndarray*** of ***Single_Trial_RSA instance***, depending on the interpolation settings. For each key, the ***Single_Trial_RSA instance*** will only contain the specific trials associated with a unique character (condition) in the **mask**
+<br/><br/> 
+
+<code>**create_STR_subject_tri**(sub_name, eeg, var_names, extract_type = "None", cond_sti = None, cond_dict = None, words = None, mask = None, interpolation = False, max_diff = 0, range_type = "percentage", stim_val = "average", stim_val_type = "dsm", CV = None)</code>
+<br/> Format the eeg data and the variable values and create one or multiple **Single_Trial_RSA** instance(s). Similar to **`create_STR_subject()`**, except that the interpolation is applied on the flattened upper triangular arrays of the variables' dissimilarity matrices.
+<br/><br/> 
+
+<code>**calculate_variables_correlation**(var_names, control_var = None, corr_type = "dsm", interpolation = False, max_diff = 0, range_type = "percentage", stim_val = "average", stim_val_type = "dsm")</code>
+- **Parameters**
+  - **var_names: *numpy ndarray* with shape = (x,)** <br/>
+    The array of the names of the variables to be extracted.
+  - **control_var: *None* or *numpy ndarray* with shape = (x,)** <br/>
+    The control variables. Default = ***None***. If **control_var** is a ***numpy ndarray***, then it contains the name of the variables to be controlled for in partial correlation. If a variable specified in **var_names** is also specified in **control_var**, the variable will not be included in the control variable if it is currently the independent variable. For example, if `var_names = ["a", "b", "c"]` and `control_var = ["a", "b", "c"]`, then while calculating the correlation between `a,b`, only `c` will be taken as the control. While calculating the correlation between `a,c`, only `b` will be taken as the control, and so on and so forth. *Optional*.
+  - **corr_type: *"dsm"* or *raw*** <br/>
+    The type of data used for correlation. Default = **"dsm"**. If `corr_type = "dsm"`, then pearson correlation will be applied to the flatten upper triangular array of the dissimilarity matrix. If `corr_type = "raw"`, then pearson correlation will be applied to the 1D variable array.
+  - **interpolation, max_diff, range_type, stim_val, stim_val_type** <br/>
+    Please refer to **`create_STR_subject`** for details. <br/>
+- **Returns**
