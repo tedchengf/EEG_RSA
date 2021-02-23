@@ -158,7 +158,8 @@ A class for storing variables. It is recommended to store all variables together
     The array of missing words
   - **bad_words_indices: *numpy ndarray* with shape = (n,)** <br/>
     The indexes of the missing words, relative to the specified array **words**
-    
+<br/><br/> 
+
 <code>**semantic_disimilarilty**(words, update = True, sim_type = "w2v", resource_directory = "./")</code>
 <br/> Calculate the 2D semantic dissimilarity matrix based on the words. The dissimilarity score is calculated using cosine similarity. Note that if a word word is not found in the corpus, all associated matrix values will be `numpy.NaN`.
 - **Parameters**
@@ -168,4 +169,35 @@ A class for storing variables. It is recommended to store all variables together
     Indicate whether the user wants to update the dissimilarity matrix directly to the instance. Default = **True**. If `update = True`, then the variables will be updated with the name `"w2v"`, `"lsa"`, or `"glove"` according to **sim_type**. The associated 1D array will be an empty array.
   - **sim_type, resource_directory** <br/>
     Please refer to **`check_missing_words()`** for details. <br/>
+- **Returns**
+  - **var_matrix: *numpy ndarray* with shape = (n, n)** <br/>
+    The 2D semantic dissimilarity matrix.
+<br/><br/> 
+
+<code>**impute_missing_values**(var_names, impute_target = "tri", update = True)</code>
+<br/> Utilizes `sklearn.impute.IterativeImputer()` with `mputation_order="random"`. ***Note***: this function has not been thoroughly tested.
+- **Parameters**
+  - **var_names: *numpy ndarray* with shape = (n,)** <br/>
+    The array of the names of the variables to be included in the imputation process.
+  - **impute_target: "tri" or "arr"** <br/>
+    The type of array used for imputation. Default = **"tri"**. If `impute_target = "tri"`, then the flattened arrays of the upper triangular of the dissimilarity matrices will be used. If `impute_target = "arr"`, then the original 1D variable arrays will be used.
+  - **update: *bool*** <br/>
+    Indicate whether the user wants to update the results of imputation to the targeted array.
+- **Returns**
+  - **result: *numpy ndarray* with shape = (n, b)** <br/>
+    The imputation results, with the first dimension being variables and the second dimension being the dimension of the targeted type of array.
+<br/><br/> 
+
+<code>**delete_trials**(indices = None, words = None)</code>
+<br/> Delete specified trials from the instance. All the class attributes will be updated accordingly, except that *masks_dict* will be set to ***None***. At least one of the two optional parameters must be defined.
+- **Parameters**
+  - **indices: *None* or *numpy ndarray* with shape = (n,)** <br/>
+    The indices of the trials to be deleted. Default = **None**. *Optional*.
+  - **words : *None* or *numpy ndarray* with shape = (n,)** <br/>
+    The words of the trials to be deleted. Default = **None**. *Optional*.
+- **Returns**
+  - **indices: *numpy ndarray* with shape = (n,)** <br/>
+    The indices of the deleted trials.
+  - **Missing_ind : *numpy ndarray* with shape = (n,)** <br/>
+    The indices of trials that are specified but not found in the instances. Only defined if **words** is not **None**, and the indices are relative to the **words**. 
 
