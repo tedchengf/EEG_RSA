@@ -139,7 +139,7 @@ A class for storing variables. It is recommended to store all variables together
 <br/><br/> 
 
 <code>**calculate_variables_correlation_interpol**(var_names, partial = True, max_diff = 0, range_type = "percentage", stim_val = "average", stim_val_type = "dsm")</code>
-<br/> Variable correlation with interpolation options. ***Depreciated***, with its function completely replaced by **`calculate_variables_correlation()`**
+<br/> Variable correlation with interpolation options. ***Depreciated***, with its functionality completely replaced by **`calculate_variables_correlation()`**
 <br/><br/> 
 
 <code>**check_missing_words**(words, sim_type = "w2v", resource_directory = "./")</code>
