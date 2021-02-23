@@ -84,7 +84,7 @@ A class for storing variables. It is recommended to store all variables together
     The indexes not found in the current instance. The indexes are defined relatively to the specified **word** parameter, and will be ***np ndarray*** only when `extract_type = "words".
  
 <code>**create_STR_subject**(sub_name, eeg, var_names, extract_type = "None", cond_sti = None, cond_dict = None, words = None, mask = None, interpolation = False, max_diff = 0, range_type = "percentage", stim_val = "average", stim_val_type = "dsm", CV = None)</code>
-<br/> Format the eeg data and the variable values and create a **Single_Trial_RSA** instance
+<br/> Format the eeg data and the variable values and create one or multiple **Single_Trial_RSA** instance(s)
 - **Parameters**
   - **sub_name: *str*** <br/>
     The name of the current subject. 
