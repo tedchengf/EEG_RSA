@@ -10,7 +10,7 @@ A class for storing variables. It is recommended to store all variables together
   - *__word_dict*: Private variable. a python dictionary that contains all the indices of the words.  Empty when initialized, automatically updated by __find_words_indices() function.
 <br/><br/>
 
-- **Public Functions**
+- **Public Class Functions**
   - **`print_attribute_info()`**: Print the basic information of the class attributes.
   - **`update_variable()`**: Add a variable to the class.
   - **`update_mask()`**: Add a mask to the class. ***Depreciated***.
@@ -22,21 +22,23 @@ A class for storing variables. It is recommended to store all variables together
   - **`check_missing_words()`**: Check whether a list of specified words are included in a specified corpus
   - **`semantic_disimilarilty()`**: Calculate pairwise semantic dissimilarity of a list of specified words using a specified corpus
   - **`impute_missing_values()`**: To be tested. Impute missing value of a variable from other variables
-  - **`delete_trials()`**: Delete specified trials from the dataset
+  - **`abs_diff()`, `eculidian_dist()`**: Two dissimilarity functions in the form of **Dfunction** for **`update_variable()`**.
+  - **`z_squared_transform()`, `z_absolute_transform()`**: Two dissimilarity functions in the form of **Tfunction** for **`update_variable()`**.
 <br/><br/>
 
 - **Other Functions**
-  - `**nearst_neighbor_1D()**`: A nearest neighbor algorithm that group values from a 1D array
-  - `**matrix_iteration()**`: A template function that can apply the embeded function iteratively to all pairwise values
+  - **`nearst_neighbor_1D()`**: A nearest neighbor algorithm that group values from a 1D array
+  - **`matrix_iteration()`**: A template function that can apply the embeded function iteratively to all pairwise values
+  - **`z_squared_transform()`**: A template function that can apply the embeded function iteratively to all pairwise values
 
-## Public Functions
+## Public Class Functions
 
 <code>**print_attribute_info**()</code>
 <br/> Print the status of the following attributes: *variable_names*, *variable_arrays*, *variable_matrices*, *variable_triangulars*, *masks_dict*
 <br/><br/>
 
 <code>**update_variable**(var_name, var_array = None, var_matrix = None, Tfunction = None, Dfunction = abs_diff)</code>
-<br/> Update a variable to the class. Note that at least one of the two parameters **var_array, var_matrix** must be defined 
+<br/> Update a variable to the class. Note that at least one of the two parameters **var_array, var_matrix** must be defined.
 - **Parameters**
   - **var_name: *str*** <br/>
     The name of the variable
@@ -201,3 +203,19 @@ A class for storing variables. It is recommended to store all variables together
   - **Missing_ind : *numpy ndarray* with shape = (n,)** <br/>
     The indices of trials that are specified but not found in the instances. Only defined if **words** is not **None**, and the indices are relative to the **words**. 
 
+
+## Other Functions
+<code>**nearst_neighbor_1D**(stimuli_array, max_diff = 0, range_type = "percentage", stim_val = "average")</code>
+<br/> A basic 1D nearst neighbor algorithm. Note that this implementation allows "overlapping", so one value can be in more than one cluster.
+- **Parameters**
+  - **stimuli_array: *numpy ndarray* with shape = (n,)** <br/>
+    The target array to perform the algorithm
+  - **max_diff: *int*** <br/>
+    Specify the maximum absolute difference between a value and a cluster center for that value to be included into the cluster. Default = **0**. Ignored unless `interpolation = True`. If `max_diff = 0`, only identical values will be included in the same cluster.
+  - **range_type: "percentage" or "raw"** <br/>
+    The type of value for **max_diff**. Default = **percentage**. Ignored unless `interpolation = True`. If set to **"percentage"**, the maximum difference will be the set percentage of the overall range of the dataset. If set to **"raw"**, the maximum difference will be the value specified for **max_diff**.
+  - **stim_val: "average" or "central"** <br/>
+    The type of value that will become the value of a cluster. Default = **"average"**. Ignored unless `interpolation = True`. If set to **"average"**, the cluster value will be the average of all values in the cluster. If set to **central**, the cluster value will be the value at the center of the cluster.
+- **Returns**
+  - **NN_dict: *dict*** <br/>
+  The nearest-neighbor dictionary. The keys will be the value in the center of the clusters, and the values will be `(mask, index)`. The `mask` will be a boolian ***numpy ndarray*** with `True` indicating the values that belong to the current cluster. The `index` will be a numerical ***numpy ndarray*** that contains the indexes of values that belong to the current cluster. Both the `mask` and the `index` are defined relatively to **stimuli_array**.
