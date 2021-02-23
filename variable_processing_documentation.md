@@ -22,14 +22,13 @@ A class for storing variables. It is recommended to store all variables together
   - **`check_missing_words()`**: Check whether a list of specified words are included in a specified corpus
   - **`semantic_disimilarilty()`**: Calculate pairwise semantic dissimilarity of a list of specified words using a specified corpus
   - **`impute_missing_values()`**: To be tested. Impute missing value of a variable from other variables
-  - **`abs_diff()`, `eculidian_dist()`**: Two dissimilarity functions in the form of **Dfunction** for **`update_variable()`**.
-  - **`z_squared_transform()`, `z_absolute_transform()`**: Two dissimilarity functions in the form of **Tfunction** for **`update_variable()`**.
 <br/><br/>
 
 - **Other Functions**
   - **`nearst_neighbor_1D()`**: A nearest neighbor algorithm that group values from a 1D array
   - **`matrix_iteration()`**: A template function that can apply the embeded function iteratively to all pairwise values
-  - **`z_squared_transform()`**: A template function that can apply the embeded function iteratively to all pairwise values
+  - **`abs_diff()`, `eculidian_dist()`**: Two dissimilarity functions in the form of **Dfunction** for **`update_variable()`**.
+  - **`z_squared_transform()`, `z_absolute_transform()`**: Two dissimilarity functions in the form of **Tfunction** for **`update_variable()`**.
 
 ## Public Class Functions
 
