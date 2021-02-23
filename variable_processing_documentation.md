@@ -2,11 +2,11 @@
 A class for storing variables. It is recommended to store all variables together into one instance, since many functions operate on multiple variables simultanously.
 - **Class Attributes** 
   - *words*: a numpy array of all the stimuli words used in all the trials. This class assumes that all trials use different words. This attribute must be specified upon initialization.
-  - *variable_names*: a numpy array of all the variable names. Empty when initialized, updated by **update_variable()** function. ***Do not change this attribute manually***; they are used to find the indexes of *variable_arrays*, *variable_matrices*, and *variable_triangulars*.
-  - *variable_arrays*: a 2D numpy array of all the variable values. Empty when initialized, updated by **update_variable()** function. Dimension: (variable, values).
-  - *variable_matrices*: a 3D numpy array of all the variable dissimilarity matrices. Empty when initialized, updated by **update_variable()** function. Dimension: (variable, values, values).
-  - *variable_triangulars*: a 2D numpy array of all the flatten triangular arrays obtained from the variable dissimilarity matrices. Empty when initialized, updated by **update_variable()** function. Dimension: (variable, triangular values).
-  - *masks_dict*: a python dictionary that contains all the conditions. Empty when initialized, updated by **update_mask()** function.  Structure: {Condition name : {label name : mask numpy array}}. ***Depreciated***.
+  - *variable_names*: a numpy array of all the variable names. Empty when initialized, updated by **`update_variable()`** function. ***Do not change this attribute manually***; they are used to find the indexes of *variable_arrays*, *variable_matrices*, and *variable_triangulars*.
+  - *variable_arrays*: a 2D numpy array of all the variable values. Empty when initialized, updated by **`update_variable()`** function. Dimension: (variable, values).
+  - *variable_matrices*: a 3D numpy array of all the variable dissimilarity matrices. Empty when initialized, updated by **`update_variable()`** function. Dimension: (variable, values, values).
+  - *variable_triangulars*: a 2D numpy array of all the flatten triangular arrays obtained from the variable dissimilarity matrices. Empty when initialized, updated by **`update_variable()`** function. Dimension: (variable, triangular values).
+  - *masks_dict*: a python dictionary that contains all the conditions. Empty when initialized, updated by **`update_mask()`** function.  Structure: {Condition name : {label name : mask numpy array}}. ***Depreciated***.
   - *__word_dict*: Private variable. a python dictionary that contains all the indices of the words.  Empty when initialized, automatically updated by __find_words_indices() function.
 <br/><br/>
 
