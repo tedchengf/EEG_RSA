@@ -61,7 +61,7 @@ A class for storing variables. It is recommended to store all variables together
 - **Parameters**
   - **var_names: *numpy ndarray* with shape = (n,)** <br/>
     The array of the names of the variables to be extracted.
-  - **extract_type: *"None"*, *"cond_sti"*, or *"words"*** <br/>
+  - **extract_type: "None", "cond_sti", or "words"** <br/>
     The type of indexing options. Default = "None", and all variable values will be exported in the original order. **"cond_sti"** orders the variable values through condition-stimuli pairs. **"words"** orders the variable values through their corresponding words. <br/>
     ***Note:*** While the **"cond_sti"** option assumes the specified trials to be a subset of the trials stored in the instance,  the **"words"** option does not make this assumption and exports all trials found in the interaction of specified words and the stored words. Therefore the **"words"** option is particularly useful when the user delete some trials from the current instance. <br/>
     ***Note***: This parameter can be specified together with **mask**. The function will only extract variable values presented both in the mask and in the specified indexing options.
@@ -101,15 +101,15 @@ A class for storing variables. It is recommended to store all variables together
     ***Note***: The interpolation will be applied seperately for each variable specified in **var_names**. If more than 1 variable is specified, the function will return a seperate **Single_Trial_RSA** instance for each variable. 
   - **max_diff: *int*** <br/>
     Specify the maximum absolute difference between a value and a cluster center for that value to be included into the cluster. Default = **0**. Ignored unless `interpolation = True`. If `max_diff = 0`, only identical values will be included in the same cluster.
-  - **range_type: *"percentage"* or *"raw"*** <br/>
+  - **range_type: "percentage" or "raw"** <br/>
     The type of value for **max_diff**. Default = **percentage**. Ignored unless `interpolation = True`. If set to **"percentage"**, the maximum difference will be the set percentage of the overall range of the dataset. If set to **"raw"**, the maximum difference will be the value specified for **max_diff**.
-  - **stim_val: *"average"* or *"central"*** <br/>
+  - **stim_val: "average" or "central"** <br/>
     The type of value that will become the value of a cluster. Default = **"average"**. Ignored unless `interpolation = True`. If set to **"average"**, the cluster value will be the average of all values in the cluster. If set to **central**, the cluster value will be the value at the center of the cluster.
-  - **stim_val_type: *"dsm"* or *"raw"*** <br/>
-    The type of stimuli value to be considered. Default = **dsm**. Ignored unless `interpolation = True`. If set to **"dsm"**, the function interpolate the sub-matrix specified by the indexes of values contained in a cluster by averaging the sub-matrix of the corresponding dissimilarity matrix. This option requires `stim_val = "average"`. If set to **"raw"**, the function will interpolate the 1D variable array, and the variable dissimilarity matrix and the associated flatten upper triangular value will be recalculated based on the new 1D array.
+  - **stim_val_type: "dsm" or "raw"** <br/>
+    The type of stimuli value to be considered. Default = **"dsm"**. Ignored unless `interpolation = True`. If set to **"dsm"**, the function interpolate the sub-matrix specified by the indexes of values contained in a cluster by averaging the sub-matrix of the corresponding dissimilarity matrix. This option requires `stim_val = "average"`. If set to **"raw"**, the function will interpolate the 1D variable array, and the variable dissimilarity matrix and the associated flatten upper triangular value will be recalculated based on the new 1D array.
   - **CV: *None* or *numpy ndarray* with shape = (n,)** <br/>
-    The control variables for **Single_Trial_RSA**. Default = **None**. If **CV** is a ***numpy ndarray***, then it contains the name of the variables to be exported to the **Single_Trial_RSA** instance. If a variable specified in **var_names** is also specified in **CV**, the variable will only be exported once. If `interpolation = True`, then all the variable specified in **CV** will be interpolated according to the interpolation policy created for a particular variable specified in **var_names**. <br/>
-    ***Note*** This function only export relevant variables to the **Single_Trial_RSA** instance, but the user needs to specify the control variable in the **Single_Trial_RSA** when performing RSA. This parameter is intended to let the function apply interpolation policy created from other variables to the control variables.
+    The control variables for ***Single_Trial_RSA instance***. Default = **None**. If **CV** is a ***numpy ndarray***, then it contains the name of the variables to be exported to the ***Single_Trial_RSA instance***. If a variable specified in **var_names** is also specified in **CV**, the variable will only be exported once. If `interpolation = True`, then all the variable specified in **CV** will be interpolated according to the interpolation policy created for a particular variable specified in **var_names**. <br/>
+    ***Note*** This function only export relevant variables to the ***Single_Trial_RSA instance***, but the user needs to specify the control variable in the ***Single_Trial_RSA instance*** when performing RSA. This parameter is intended to let the function apply interpolation policy created from other variables to the control variables.
 - **Returns**
   - **Subjects: *Single_Trial_RSA instance*, *numpy ndarray* or *dict*** <br/>
     By default, the function will return one ***Single_Trial_RSA instance***. <br/>
@@ -126,9 +126,12 @@ A class for storing variables. It is recommended to store all variables together
   - **var_names: *numpy ndarray* with shape = (n,)** <br/>
     The array of the names of the variables to be extracted.
   - **control_var: *None* or *numpy ndarray* with shape = (n,)** <br/>
-    The control variables. Default = ***None***. If **control_var** is a ***numpy ndarray***, then it contains the name of the variables to be controlled for in partial correlation. If a variable specified in **var_names** is also specified in **control_var**, the variable will not be included in the control variable if it is currently the independent variable. For example, if `var_names = ["a", "b", "c"]` and `control_var = ["a", "b", "c"]`, then while calculating the correlation between `a,b`, only `c` will be taken as the control. While calculating the correlation between `a,c`, only `b` will be taken as the control, and so on and so forth. *Optional*.
-  - **corr_type: *"dsm"* or *raw*** <br/>
+    The control variables. Default = ***None***. If **control_var** is a ***numpy ndarray***, then it contains the name of the variables to be controlled for in partial correlation. If a variable specified in **var_names** is also specified in **control_var**, the variable will not be included in the control variable if it is currently the target variable. For example, if `var_names = ["a", "b", "c"]` and `control_var = ["a", "b", "c"]`, then while calculating the correlation between `a,b`, only `c` will be taken as the control. While calculating the correlation between `a,c`, only `b` will be taken as the control, and so on and so forth. *Optional*.
+  - **corr_type: "dsm" or "raw"** <br/>
     The type of data used for correlation. Default = **"dsm"**. If `corr_type = "dsm"`, then pearson correlation will be applied to the flatten upper triangular array of the dissimilarity matrix. If `corr_type = "raw"`, then pearson correlation will be applied to the 1D variable array.
   - **interpolation, max_diff, range_type, stim_val, stim_val_type** <br/>
     Please refer to **`create_STR_subject`** for details. <br/>
 - **Returns**
+  - **correlation_matrix: *numpy ndarray* with shape = (n, n)** <br/>
+    The pairwise correlation of specified variables. <br/>
+    ***Note***: If `interpolation = True`, the pairwise correlation will not be symmetrical. In this matrix, the x-axis represents the target variable that is used to create the interpolation policy, and the y-axis represents the control variable that will be interpolated according to the policy created by the target variable. For example, while `[a, b]` represents "the correlation between interpolated a and b according to the interpolation policy of variable a", `[b, a]` represents "the correlation between interpolated b and a according to the interpolation policy of variable b".
