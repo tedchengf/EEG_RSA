@@ -130,7 +130,7 @@ A class for storing variables. It is recommended to store all variables together
   - **corr_type: "dsm" or "raw"** <br/>
     The type of data used for correlation. Default = **"dsm"**. If `corr_type = "dsm"`, then pearson correlation will be applied to the flatten upper triangular array of the dissimilarity matrix. If `corr_type = "raw"`, then pearson correlation will be applied to the 1D variable array.
   - **interpolation, max_diff, range_type, stim_val, stim_val_type** <br/>
-    Please refer to **`create_STR_subject`** for details. <br/>
+    Please refer to **`create_STR_subject()`** for details. <br/>
 - **Returns**
   - **correlation_matrix: *numpy ndarray* with shape = (n, n)** <br/>
     The pairwise correlation of specified variables. <br/>
