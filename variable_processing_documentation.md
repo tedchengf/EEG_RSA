@@ -11,18 +11,18 @@ A class for storing variables. It is recommended to store all variables together
 <br/><br/>
 
 - **Public Functions**
-  - `**print_attribute_info()**`: Print the basic information of the class attributes.
-  - `**update_variable()**`: Add a variable to the class.
-  - `**update_mask()**`: Add a mask to the class. ***Depreciated***.
-  - `**export_variables()**`: Export variables according to the specified format.
-  - `**create_STR_subject()**`: Create a **Single_Trial_RSA** instance.
-  - `**create_STR_subject_tri()**`: Temporary function. Create a **Single_Trial_RSA** instance, applying all specifications to the interpolated triangular data.
-  - `**calculate_variables_correlation()**`: Calculate the pairwise (partial) correlation of specified variables.
-  - `**calculate_variables_correlation_interpol()**`: Temporary function. Calculate the pairwise (partial) correlation of specified variables, with interpolation specifications avaliable.
-  - `**check_missing_words()**`: Check whether a list of specified words are included in a specified corpus
-  - `**semantic_disimilarilty()**`: Calculate pairwise semantic dissimilarity of a list of specified words using a specified corpus
-  - `**impute_missing_values()**`: To be tested. Impute missing value of a variable from other variables
-  - `**delete_trials()**`: Delete specified trials from the dataset
+  - **`print_attribute_info()`**: Print the basic information of the class attributes.
+  - **`update_variable()`**: Add a variable to the class.
+  - **`update_mask()`**: Add a mask to the class. ***Depreciated***.
+  - **`export_variables()`**: Export variables according to the specified format.
+  - **`create_STR_subject()`**: Create a **Single_Trial_RSA** instance.
+  - **`create_STR_subject_tri()`**: Temporary function. Create a **Single_Trial_RSA** instance, applying all specifications to the interpolated triangular data.
+  - **`calculate_variables_correlation()`**: Calculate the pairwise (partial) correlation of specified variables.
+  - **`calculate_variables_correlation_interpol()`**: Temporary function. Calculate the pairwise (partial) correlation of specified variables, with interpolation specifications avaliable.
+  - **`check_missing_words()`**: Check whether a list of specified words are included in a specified corpus
+  - **`semantic_disimilarilty()`**: Calculate pairwise semantic dissimilarity of a list of specified words using a specified corpus
+  - **`impute_missing_values()`**: To be tested. Impute missing value of a variable from other variables
+  - **`delete_trials()`**: Delete specified trials from the dataset
 <br/><br/>
 
 - **Other Functions**
@@ -72,7 +72,7 @@ A class for storing variables. It is recommended to store all variables together
   - **words: *None* or *numpy ndarray* with shape = (x,)** <br/>
     The 1D array of words. Note that this parameter need not be a subset of the stored words in the instance. The program will only export words in the intersection of the specified array and the stored array.
   - **mask: *None*, *str*, or *numpy ndarray* with shape = (x,)** <br/>
-    The mask that will be applied to the 1D variable arrays. If **mask** is ***str***, the function will find the corresponding mask stored in the instance (***Depreciated***). If **mask** is ***numpy ndarray***, the dimension of the mask must be identical to the dimension of class attributes *words*. If `dtype = bool`, the trials labeled `False` will be ignored. Otherwise, for each unique character in the mask array, the function will divide the variable values into its own subset. For example, suppose `mask = [1,1,1,2,2,3,3,3]`, then the function will divide the dataset into the three subsets using the three masks: `[1,1,1,0,0,0,0,0]`, `[0,0,0,1,1,0,0,0]`, and `[0,0,0,0,0,1,1,1]`. The three subsets will be exported seperately; refer to the return section for more details. *Optional*. <br/>
+    The condition mask that will be applied to the 1D variable arrays. If **mask** is ***str***, the function will find the corresponding mask stored in the instance (***Depreciated***). If **mask** is ***numpy ndarray***, the dimension of the mask must be identical to the dimension of class attributes *words*. If `dtype = bool`, the trials labeled `False` will be ignored. Otherwise, for each unique character in the mask array, the function will divide the variable values into its own subset. For example, suppose `mask = [1,1,1,2,2,3,3,3]`, then the function will divide the dataset into the three subsets using the three masks: `[1,1,1,0,0,0,0,0]`, `[0,0,0,1,1,0,0,0]`, and `[0,0,0,0,0,1,1,1]`. The three subsets will be exported seperately; refer to the return section for more details. *Optional*. <br/>
     ***Note***: This parameter can be specified together with **extract_type** options. The function will only extract variable values presented both in the mask and in the specified indexing options.
 - **Returns**
   - **Results: *dict* or *list*** <br/>
@@ -82,3 +82,30 @@ A class for storing variables. It is recommended to store all variables together
     A list of conditions that have no trials under the indexing and mask constraints. Only appears when **mask** is specified.
   - **Missing_ind: *None* or *numpy ndarray*** <br/>
     The indexes not found in the current instance. The indexes are defined relatively to the specified **word** parameter, and will be ***np ndarray*** only when `extract_type = "words".
+ 
+<code>**create_STR_subject**(sub_name, eeg, var_names, extract_type = "None", cond_sti = None, cond_dict = None, words = None, mask = None, interpolation = False, max_diff = 0, range_type = "percentage", stim_val = "average", stim_val_type = "dsm", CV = None)</code>
+<br/> Format the eeg data and the variable values and create a **Single_Trial_RSA** instance
+- **Parameters**
+  - **sub_name: *str*** <br/>
+    The name of the current subject. 
+  - **eeg: *numpy ndarray* with shape = (x,y,z)** <br/>
+    The eeg data of the current subject, where *x* is the trial dimension, *y* is the channel dimension, and *z* is the time dimension. 
+  - **var_names, extract_type, cond_sti, cond_dict, words, mask** <br/>
+    Please refer to **`export_variables`** for details.  <br/>
+    ***Note***: If the trials contained in the **eeg** is not a subset of the trials of the variable values, please use `extract_type = "words"`.   <br/>
+    ***Note***: While the indexing options are relative to the input **eeg** data, **mask** is relative to the variable data stored in the instance. This function ensure that the trial dimension of **eeg** and other variable values will match.
+  - **interpolation: *bool*** <br/>
+    Allow interpolation. Default = **False**.  <br/>
+    ***Note***: the interpolation option is compatible with indexing options and **mask**.  <br/>
+    ***Note***: The interpolation will be applied seperately for each variable specified in **var_names**. If more than 1 variable is specified, the function will return a seperate **Single_Trial_RSA** instance for each variable. 
+  - **max_diff: *int*** <br/>
+    Specify the maximum absolute difference between a value and a cluster center for that value to be included into the cluster. Default = **0**. Ignored unless `interpolation = True`. If `max_diff = 0`, only identical values will be included in the same cluster.
+  - **range_type: *"percentage"* or *"raw"*** <br/>
+    The type of value for **max_diff**. Default = **percentage**. Ignored unless `interpolation = True`. If set to **"percentage"**, the maximum difference will be the set percentage of the overall range of the dataset. If set to **"raw"**, the maximum difference will be the value specified for **max_diff**.
+  - **stim_val: *"average"* or *"central"*** <br/>
+    The type of value that will become the value of a cluster. Default = **"average"**. Ignored unless `interpolation = True`. If set to **"average"**, the cluster value will be the average of all values in the cluster. If set to **central**, the cluster value will be the value at the center of the cluster.
+  - **stim_val_type: *"dsm"* or *"raw"*** <br/>
+    The type of stimuli value to be considered. Default = **dsm**. Ignored unless `interpolation = True`. If set to **"dsm"**, the function interpolate the sub-matrix specified by the indexes of values contained in a cluster by averaging the sub-matrix of the corresponding dissimilarity matrix. This option requires `stim_val = "average"`. If set to **"raw"**, the function will interpolate the 1D variable array, and the variable dissimilarity matrix and the associated flatten upper triangular value will be recalculated based on the new 1D array.
+  - **CV: *None* or *numpy ndarray* with shape = (x,)** <br/>
+    The control variables for **Single_Trial_RSA**. Default = **None**. If **CV** is a ***numpy ndarray***, then it contains the name of the variables to be exported to the **Single_Trial_RSA** instance. If a variable specified in **var_names** is also specified in **CV**, the variable will only be exported once. If `interpolation = True`, then all the variable specified in **CV** will be interpolated according to the interpolation policy created for a particular variable specified in **var_names**. <br/>
+    ***Note*** This function only export relevant variables to the **Single_Trial_RSA** instance, but the user needs to specify the control variable in the **Single_Trial_RSA** when performing RSA. This parameter is intended to let the function apply interpolation policy created from other variables to the control variables.
