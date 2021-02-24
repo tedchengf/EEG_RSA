@@ -22,6 +22,7 @@ A class for storing variables. It is recommended to store all variables together
   - **`check_missing_words()`**: Check whether a list of specified words are included in a specified corpus
   - **`semantic_disimilarilty()`**: Calculate pairwise semantic dissimilarity of a list of specified words using a specified corpus
   - **`impute_missing_values()`**: To be tested. Impute missing value of a variable from other variables
+  - **`delete_trials()`**: Delete particular trials from the instance
 <br/><br/>
 
 - **Other Functions**
