@@ -28,7 +28,7 @@ A class for storing variables. It is recommended to store all variables together
   - **`nearst_neighbor_1D()`**: A nearest neighbor algorithm that group values from a 1D array
   - **`matrix_iteration()`**: A template function that can apply the embeded function iteratively to all pairwise values
   - **`abs_diff()`, `eculidian_dist()`**: Two dissimilarity functions in the form of **Dfunction** for **`update_variable()`**.
-  - **`z_squared_transform()`, `z_absolute_transform()`**: Two dissimilarity functions in the form of **Tfunction** for **`update_variable()`**.
+  - **`z_squared_transform()`, `z_absolute_transform()`**: Two transformation functions in the form of **Tfunction** for **`update_variable()`**.
 
 ## Public Class Functions
 
