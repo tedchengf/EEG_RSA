@@ -18,7 +18,7 @@ A class for storing variables. It is recommended to store all variables together
   - **`create_STR_subject()`**: Create a **Single_Trial_RSA** instance.
   - **`create_STR_subject_tri()`**: Temporary function. Create a **Single_Trial_RSA** instance, applying all specifications to the interpolated triangular data.
   - **`calculate_variables_correlation()`**: Calculate the pairwise (partial) correlation of specified variables.
-  - **`calculate_variables_correlation_interpol()`**: Temporary function. Calculate the pairwise (partial) correlation of specified variables, with interpolation specifications avaliable.
+  - **`calculate_variables_correlation_interpol()`**: Temporary function. Calculate the pairwise (partial) correlation of specified variables, with interpolation specifications avaliable. ***Depreciated***.
   - **`check_missing_words()`**: Check whether a list of specified words are included in a specified corpus
   - **`semantic_disimilarilty()`**: Calculate pairwise semantic dissimilarity of a list of specified words using a specified corpus
   - **`impute_missing_values()`**: To be tested. Impute missing value of a variable from other variables
