@@ -218,3 +218,20 @@ A class for storing variables. It is recommended to store all variables together
 - **Returns**
   - **NN_dict: *dict*** <br/>
   The nearest-neighbor dictionary. The keys will be the value in the center of the clusters, and the values will be `(mask, index)`. The `mask` will be a boolian ***numpy ndarray*** with `True` indicating the values that belong to the current cluster. The `index` will be a numerical ***numpy ndarray*** that contains the indexes of values that belong to the current cluster. Both the `mask` and the `index` are defined relatively to **stimuli_array**.
+<br/><br/>
+
+<code>**matrix_iteration**(data_array, target_matrix, function, skip_diagonal=True)</code>
+<br/> A function that provides a template for iterative pair-wise comparison operation. Note that this function does not return anything, but modify the **target_matrix**.
+- **Parameters**
+  - **data_array: *numpy ndarray* with shape = (n,)** <br/>
+    A 1D array to form the matrix
+  - **target_matrix: *numpy ndarray* with shape = (n, n)** <br/>
+    The 2D array in which the result will be stored. Note that **target_matrix** must be a square matrix, and the two dimensions must agree with the first dimension of **data_array**
+  - **function: *function*** <br/>
+    A function that specifies the pairwise operation. **function** should appear in the from of `function(x,y)` where `x,y` are the two items in the **data_array** . The value returned will be stored in the corresponding position in the **target_matrix**.
+  - **skip_diagonal: *bool*** <br/>
+    A boolian value specifying whether the calculation will skip the diagonal values. Default = **True**.
+<br/><br/>
+
+<code>**matrix_iteration**(data_array, target_matrix, function, skip_diagonal=True)</code>
+<br/> A function that provides a template for iterative pair-wise comparison operation. Note that this function does not return anything, but modify the **target_matrix**.
