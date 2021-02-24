@@ -233,6 +233,3 @@ A class for storing variables. It is recommended to store all variables together
   - **skip_diagonal: *bool*** <br/>
     A boolian value specifying whether the calculation will skip the diagonal values. Default = **True**.
 <br/><br/>
-
-<code>**matrix_iteration**(data_array, target_matrix, function, skip_diagonal=True)</code>
-<br/> A function that provides a template for iterative pair-wise comparison operation. Note that this function does not return anything, but modify the **target_matrix**.
